@@ -1,0 +1,87 @@
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* Tablet styling */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .chat {
+    max-width: 80%;
+    padding: 40%;
+  }
+}
+
+/* Desktop/laptop styling */
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .chat {
+    max-width: 80%;
+    padding: 40%;
+  }
+}
+
+/* Large monitor styling */
+@media (min-width: 1440px) {
+  .chat {
+    max-width: 80%;
+    padding: 40%;
+  }
+}
+
+.chat {
+  //max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  max-width: 100%;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.user {
+  align-self: flex-end;
+  background-color: #3f51b5;
+  color: #ffffff;
+}
+
+.roamguru {
+  align-self: flex-start;
+  background-color: lightgrey;
+  color: #000000;
+}
+
+.chatInput {
+  display: flex;
+  margin: 0 auto;
+  padding: 10px;
+  width: 40%;
+}
+
+.chatInput input {
+  flex-grow: 2;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  //max-width: 60%;
+}
+
+.chatInput button {
+  padding: 10px;
+  margin-left: 5px;
+  background-color: #3f51b5;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  width: 20%;
+}
+
+
