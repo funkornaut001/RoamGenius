@@ -1,5 +1,5 @@
 ## TO DO
-add chat box to home page
+
 !! Encrypt users passwords !!
 Add ballon logo where possible 
 Fuck around with ChatInput comopent
