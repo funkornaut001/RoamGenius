@@ -8,15 +8,16 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 export default async function (req, res) {
-  const { message } = req.body;
+  const { message, location } = req.body;
   console.log("Message received in API route:", message);
+  console.log("Location received in API route:", location);
 
   try {
-    console.log("Generated prompt:", generatePrompt(message));
+    console.log("Generated prompt:", generatePrompt(message, location));
 
   const completion = await openai.createCompletion({
     model: 'text-davinci-003',
-    prompt: generatePrompt(message),
+    prompt: generatePrompt(message, location),
     temperature: 1,
     max_tokens: 2048,
   });
@@ -25,11 +26,13 @@ export default async function (req, res) {
     console.error("API call error:", error);
 }
 
-function generatePrompt(input) {
-  return `You are RoamGuru, an AI travel expert that provides personalized recommendations for travelers. As RoamGuru, answer the following prompt from a user. Be specific and suggest individual places to go and things to see.
+function generatePrompt(input, location) {
+  return `You are RoamGuru, an AI travel expert that provides personalized recommendations for travelers. As RoamGuru, answer the following prompt from a user located in ${location}. Be specific and suggest individual places to go and things to see.
 
 ${input}
 RoamGuru:`;
+
+
 }
 
   }

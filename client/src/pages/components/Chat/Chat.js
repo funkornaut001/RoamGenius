@@ -21,8 +21,9 @@ const Chat = () => {
     scrollToBottom();
   }, [messages]);
 
-  const handleMessageSubmit = async (input) => {
+  const handleMessageSubmit = async (input, location) => {
     console.log("User input:", input);
+    console.log("User location:", location);
 
     if (!input.trim()) return;
 
@@ -31,19 +32,22 @@ const Chat = () => {
       { text: input, user: "user" },
     ]);
 
-    const response = await generateResponse(input);
+    const response = await generateResponse(input, location);
     setMessages((prevMessages) => [
       ...prevMessages,
       { text: response, user: "roamguru" },
     ]);
   };
 
+
+  const initialLocation = router.query.location;
+
   useEffect(() => {
     if (initialMessage && !initialMessageProcessed.current) {
-      handleMessageSubmit(initialMessage);
+      handleMessageSubmit(initialMessage, initialLocation);
       initialMessageProcessed.current = true;
     }
-  }, [initialMessage]);
+  }, [initialMessage, initialLocation]);
 
   return (
     <div>

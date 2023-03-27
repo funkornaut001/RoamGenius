@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export async function generateResponse(input) {
+export async function generateResponse(input, location) {
   console.log("Message received in gpt3Service:", input);
 
 
   try {
-    const response = await axios.post("/api/gpt3", { message: input });
+    const response = await axios.post("/api/gpt3", { message: input, location: location });
     console.log("Response:", response.data.result);
 
     return response.data.result;
