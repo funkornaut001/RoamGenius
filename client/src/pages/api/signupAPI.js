@@ -1,32 +1,40 @@
-import { connectToDatabase } from "../../../utils/db";
-import { hash } from "bcrypt";
+// src/pages/api/signupAPI.js
+import { connectToDatabase } from '../../utils/db';
+import User from '../../server/models/User';
+import runCorsMiddleware from 'nextjs-cors';
+
+
+const cors = {
+  methods: ['POST'], // Allow only POST requests
+  origin: '*', // Allow any origin
+  optionsSuccessStatus: 200, // Success status for preflight requests (OPTIONS)
+};
+
 
 export default async (req, res) => {
-  console.log("Request body:", req.body);
+  await runCorsMiddleware(req, res, cors); // Apply CORS middleware
 
-  if (req.method === "POST") {
+  if (req.method === 'POST') {
+    const { username, email, password } = req.body;
+
     try {
-      const { email, password, name } = req.body;
       const { db } = await connectToDatabase();
 
-      // Check if the email already exists
-      const existingUser = await db.collection("users").findOne({ email });
+      const existingUser = await db.collection('roamGeniusUsers').findOne({ email });
+
       if (existingUser) {
-        return res.status(400).json({ error: "Email already exists" });
+        return res.status(400).json({ message: 'User already exists' });
       }
 
-      // Hash the password
-      const hashedPassword = await hash(password, 10);
+      const newUser = new User({ username, email, password });
+      await db.collection('roamGeniusUsers').insertOne(newUser);
 
-      // Save the user in the database
-      await db.collection("users").insertOne({ name, email, password: hashedPassword });
-
-      return res.status(201).json({ message: "User created successfully" });
+      res.status(201).json({ message: 'User created successfully' });
     } catch (error) {
-      console.error("Error in signupAPI:", error);
-      res.status(500).json({ error: "An error occurred while processing the request" });
+      res.status(500).json({ message: 'Something went wrong' });
+      console.log(error);
     }
   } else {
-    res.status(405).json({ error: "Method not allowed" });
+    res.status(405).json({ message: 'Method not allowed' });
   }
 };

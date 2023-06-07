@@ -1,10 +1,10 @@
 import { MongoClient } from 'mongodb';
 
-const uri = process.env.MONGODB_URI;
+const uri = process.env.MONGODB_CONNECTION_STRING;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 export async function connectToDatabase() {
-  if (!client.isConnected()) {
+  if (!client.topology || !client.topology.isConnected()) {
     await client.connect();
   }
   const db = client.db(process.env.MONGODB_DB);

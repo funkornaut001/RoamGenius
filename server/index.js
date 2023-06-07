@@ -9,7 +9,8 @@ app.use(cors());
 app.use(express.json());
 
 // Replace this with your MongoDB connection string
-const dbURI = "mongodb+srv://<username>:<password>@cluster0.mongodb.net/myDatabase?retryWrites=true&w=majority";
+// const dbURI = "mongodb+srv://<username>:<password>@cluster0.mongodb.net/myDatabase?retryWrites=true&w=majority";
+const dbURI = process.env.MONGODB_CONNECTION_STRING;
 
 mongoose
   .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -21,7 +22,7 @@ mongoose
   })
   .catch((err) => console.log(err));
 
-  app.post("/signup", async (req, res) => {
+  app.post("/Signup", async (req, res) => {
     const { email, password } = req.body;
   
     try {
