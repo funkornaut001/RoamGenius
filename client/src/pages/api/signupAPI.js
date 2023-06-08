@@ -1,6 +1,6 @@
 // src/pages/api/signupAPI.js
-import { connectToDatabase } from '../../utils/db';
-import User from '../../server/models/User';
+import { connectToDatabase } from '../../../utils/db';
+import User from '../../../server/models/User';
 import runCorsMiddleware from 'nextjs-cors';
 
 
